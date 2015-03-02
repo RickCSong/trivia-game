@@ -1,8 +1,13 @@
 <template name="lobbies">
   <p>Template lobbies</p>
+  <button id="create-lobby">Create a new lobby</button>
   <ul>
     {{#each lobbies}}
-      <li>{{title}}</li>
+      <li>
+        <a href="{{pathFor route='lobbies.show'}}">
+          Lobby {{_id}}
+        </a>
+      </li>
     {{/each}}
   </ul>
 </template>

@@ -7,4 +7,7 @@ Template['lobbies'].helpers({
 });
 
 Template['lobbies'].events({
+  "click #create-lobby": function() {
+    Meteor.call('createLobby');
+  }
 });

@@ -1,17 +1,20 @@
 Lobbies = new Mongo.Collection('lobbies');
 
 Lobbies.attachSchema(
-    new SimpleSchema({
-    title: {
-      type: String
-    },
-    content: {
-      type: String
-    },
+  new SimpleSchema({
     createdAt: {
       type: Date,
-      denyUpdate: true
-    }
+      denyUpdate: true,
+      autoValue: function() {
+        if (this.isInsert) {
+          return new Date();
+        } else if (this.isUpsert) {
+          return {$setOnInsert: new Date()};
+        } else {
+          this.unset();
+        }
+      }
+    },
   })
 );
 
@@ -30,3 +33,9 @@ if (Meteor.isServer) {
     }
   });
 }
+
+Meteor.methods({
+  'createLobby': function() {
+    Lobbies.insert({});
+  }
+});
